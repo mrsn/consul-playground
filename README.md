@@ -1,1 +1,3 @@
 # consul-playground
+
+  vagrant up
