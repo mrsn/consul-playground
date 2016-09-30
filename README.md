@@ -1,8 +1,8 @@
 # consul-playground
 
-vagrant up
-
 ### Cluster
+
+	vagrant up
 
 #### Learnings
 
