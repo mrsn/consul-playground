@@ -10,10 +10,10 @@
 2. To join a cluster, there is no need to join a server (a join to any node is ok). Agents gossip with each other and propagate this information
 3. Nodes in the same datacenter should be on a single LAN
 
-##### Check cluster members (note this info is eventually consistent)
+#### Check cluster members (note this info is eventually consistent)
 	consul members -detailed
 
-##### Check cluster nodes (in a strongly consistent way)
+#### Check cluster nodes (in a strongly consistent way)
 	curl localhost:8500/v1/catalog/nodes
 
 ### Services
