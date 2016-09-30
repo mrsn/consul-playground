@@ -30,6 +30,6 @@ vagrant up
 #### Quering Services over REST
 	curl 'http://localhost:8500/v1/health/service/web'
 
-#### Updating Service Definitions (/etc/consul.d(*)
+#### Updating Service Definitions (/etc/consul.d/*)
 Change configuration files and send a SIGHUP to the agent. This is safe and there is no downtime. 
 	
