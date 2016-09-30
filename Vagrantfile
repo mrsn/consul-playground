@@ -3,7 +3,7 @@
 
 $script = <<SCRIPT
 
-sudo yum update -y && sudo yum install curl unzip wget -y
+sudo yum update -y && sudo yum install curl unzip wget bind-utils -y
 
 wget -P /tmp https://releases.hashicorp.com/consul/0.7.0/consul_0.7.0_linux_amd64.zip
 wget -P /tmp https://releases.hashicorp.com/consul/0.7.0/consul_0.7.0_web_ui.zip
