@@ -16,7 +16,7 @@ vagrant up
 #### Check cluster nodes (in a strongly consistent way)
 	curl localhost:8500/v1/catalog/nodes
 
-#### Services
+### Services
 
 #### Querying Services over DNS API
 	dig @127.0.0.1 -p 8600 web.service.consul
