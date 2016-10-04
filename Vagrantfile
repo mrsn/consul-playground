@@ -46,14 +46,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   "vagrant/virtualbox/#{box_name}.box"
 
   config.vm.define 'node_1' do |node_1|
-    node_1.vm.network :private_network, ip: '192.168.33.35'
     node_1.vm.hostname = 'node1'
+    node_1.vm.network :private_network, ip: '192.168.33.35'
 
     node_1.vm.provider :virtualbox do |vb|
       vb.customize ['modifyvm', :id, '--memory', '512']
     end
 
     node_1.vm.provision 'shell', inline: $install_consul_script
+    node_1.vm.provision 'shell', inline: $install_vault_script
 
     node_1.vm.provision(
       'shell',
@@ -72,6 +73,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     node_2.vm.provision 'shell', inline: $install_consul_script
+    node_2.vm.provision 'shell', inline: $install_vault_script
 
     node_2.vm.provision(
       'shell',
@@ -82,14 +84,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define 'node_3' do |node_3|
-    node_3.vm.network :private_network, ip: '192.168.33.37'
     node_3.vm.hostname = 'node3'
+    node_3.vm.network :private_network, ip: '192.168.33.37'
 
     node_3.vm.provider :virtualbox do |vb|
       vb.customize ['modifyvm', :id, '--memory', '512']
     end
 
     node_3.vm.provision 'shell', inline: $install_consul_script
+    node_3.vm.provision 'shell', inline: $install_vault_script
 
     node_3.vm.provision(
       'shell',
@@ -97,16 +100,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ' -node=agent-three -bind=192.168.33.37 -config-dir' \
       ' /etc/consul.d -join 192.168.33.36 > /var/log/consul/consul.log 2>&1 &'
     )
-  end
-
-  config.vm.define 'node_4' do |node_4|
-    node_4.vm.network :private_network, ip: '192.168.33.38'
-    node_4.vm.hostname = 'node4'
-
-    node_4.vm.provider :virtualbox do |vb|
-      vb.customize ['modifyvm', :id, '--memory', '512']
-    end
-
-    node_4.vm.provision 'shell', inline: $install_vault_script
   end
 end
