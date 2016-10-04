@@ -5,7 +5,7 @@ $script = <<SCRIPT
 
 CONSUL_VERSION=0.7.0
 
-sudo yum update -y && sudo yum install curl unzip wget bind-utils -y
+sudo yum install curl unzip wget bind-utils -y
 
 wget -P /tmp https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
 wget -P /tmp https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_web_ui.zip
