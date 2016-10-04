@@ -5,19 +5,19 @@ $install_consul_script = <<SCRIPT
 
 CONSUL_VERSION=0.7.0
 
-sudo yum install curl unzip wget bind-utils -y
+yum install curl unzip wget bind-utils -y
 
 wget -P /tmp https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
 wget -P /tmp https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_web_ui.zip
 
-sudo unzip /tmp/consul_${CONSUL_VERSION}_linux_amd64.zip -d /opt/consul_${CONSUL_VERSION}_linux_amd64
-sudo unzip /tmp/consul_${CONSUL_VERSION}_web_ui.zip -d /opt/consul_${CONSUL_VERSION}_web_ui
+unzip /tmp/consul_${CONSUL_VERSION}_linux_amd64.zip -d /opt/consul_${CONSUL_VERSION}_linux_amd64
+unzip /tmp/consul_${CONSUL_VERSION}_web_ui.zip -d /opt/consul_${CONSUL_VERSION}_web_ui
 
-sudo ln -sf /opt/consul_${CONSUL_VERSION}_linux_amd64/consul /usr/bin/consul
+ln -sf /opt/consul_${CONSUL_VERSION}_linux_amd64/consul /usr/bin/consul
 
-sudo mkdir -p /etc/consul.d/
-sudo mkdir -p /var/log/consul/
-sudo chmod a+w /etc/consul.d/ /var/log/consul/
+mkdir -p /etc/consul.d/
+mkdir -p /var/log/consul/
+chmod a+w /etc/consul.d/ /var/log/consul/
 
 SCRIPT
 
@@ -25,13 +25,13 @@ $install_vault_script = <<SCRIPT
 
 VAULT_VERSION=0.6.1
 
-sudo yum install curl unzip wget bind-utils -y
+yum install curl unzip wget bind-utils -y
 
 wget -P /tmp https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip
 
-sudo unzip /tmp/vault_${VAULT_VERSION}_linux_amd64.zip -d /opt/vault_${VAULT_VERSION}_linux_amd64
+unzip /tmp/vault_${VAULT_VERSION}_linux_amd64.zip -d /opt/vault_${VAULT_VERSION}_linux_amd64
 
-sudo ln -sfn /opt/vault_${VAULT_VERSION}_linux_amd64/vault /usr/bin/vault
+ln -sfn /opt/vault_${VAULT_VERSION}_linux_amd64/vault /usr/bin/vault
 
 SCRIPT
 
