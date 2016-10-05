@@ -17,6 +17,18 @@
 #### Check cluster nodes (in a strongly consistent way)
 	curl localhost:8500/v1/catalog/nodes
 
+### Key/Values
+
+#### Get all
+
+	curl -v http://localhost:8500/v1/kv/?recurse
+
+#### Put some stuff
+
+	curl -X PUT -d 'test' http://localhost:8500/v1/kv/foo/bar
+        curl -X PUT -d 'test' http://localhost:8500/v1/kv/foo/bar2?flags=100
+	curl -X PUT -d 'test'  http://localhost:8500/v1/kv/foo/bar3/key3   
+
 ### Services
 
 #### Querying Services over DNS API
