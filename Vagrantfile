@@ -115,7 +115,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     node_4.vm.provision(
       'shell',
-      inline: 'consul agent -server -data-dir /tmp/consul' \
+      inline: 'consul agent -data-dir /tmp/consul' \
       ' -node=agent-one -bind=192.168.33.38 -config-dir' \
       ' /etc/consul.d -join 192.168.33.37 > /var/log/consul/consul.log 2>&1 &'
     )
