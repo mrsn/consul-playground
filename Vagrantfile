@@ -77,7 +77,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     node_2.vm.provision(
       'shell',
-      inline: 'consul agent -data-dir /tmp/consul' \
+      inline: 'consul agent -server -data-dir /tmp/consul' \
       ' -node=agent-two -bind=192.168.33.36 -config-dir' \
       ' /etc/consul.d -join 192.168.33.35 > /var/log/consul/consul.log 2>&1 &'
     )
@@ -96,9 +96,28 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     node_3.vm.provision(
       'shell',
-      inline: 'consul agent -data-dir /tmp/consul' \
+      inline: 'consul agent -server -data-dir /tmp/consul' \
       ' -node=agent-three -bind=192.168.33.37 -config-dir' \
       ' /etc/consul.d -join 192.168.33.36 > /var/log/consul/consul.log 2>&1 &'
+    )
+  end
+
+    config.vm.define 'node_4' do |node_4|
+    node_4.vm.hostname = 'node3'
+    node_4.vm.network :private_network, ip: '192.168.33.38'
+
+    node_4.vm.provider :virtualbox do |vb|
+      vb.customize ['modifyvm', :id, '--memory', '512']
+    end
+
+    node_4.vm.provision 'shell', inline: $install_consul_script
+    node_4.vm.provision 'shell', inline: $install_vault_script
+
+    node_4.vm.provision(
+      'shell',
+      inline: 'consul agent -server -data-dir /tmp/consul' \
+      ' -node=agent-three -bind=192.168.33.38 -config-dir' \
+      ' /etc/consul.d -join 192.168.33.37 > /var/log/consul/consul.log 2>&1 &'
     )
   end
 end
