@@ -27,7 +27,7 @@
 #### Put some stuff
 
 	curl -X PUT -d 'test' http://localhost:8500/v1/kv/foo/bar
-        curl -X PUT -d 'test' http://localhost:8500/v1/kv/foo/bar2?flags=100
+    curl -X PUT -d 'test' http://localhost:8500/v1/kv/foo/bar2?flags=100
 	curl -X PUT -d 'test'  http://localhost:8500/v1/kv/foo/bar3/key3   
 
 ### Services
