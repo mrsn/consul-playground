@@ -10,7 +10,7 @@
 2. To join a cluster, there is no need to join a server (a join to any node is ok). Agents gossip with each other and propagate this information
 3. Nodes in the same datacenter should be on a single LAN
 4. ONLY servers have a persistent copy of the configuration
-5. With 3 Server if one server gets down, the other two cannot auto-elect a new leader
+5. With 3 servers if one server gets down, the other two cannot auto-elect a new leader
 
 #### Check cluster members (note this info is eventually consistent)
 	consul members -detailed
