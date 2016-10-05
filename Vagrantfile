@@ -59,7 +59,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node_1.vm.provision(
       'shell',
       inline: 'consul agent -server -bootstrap-expect 3 -data-dir /tmp/consul' \
-      ' -node=agent-one -bind=192.168.33.35 -config-dir /etc/consul.d' \
+      ' -node=server-one -bind=192.168.33.35 -config-dir /etc/consul.d' \
       ' > /var/log/consul/consul.log 2>&1 &'
     )
   end
@@ -78,7 +78,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node_2.vm.provision(
       'shell',
       inline: 'consul agent -server -data-dir /tmp/consul' \
-      ' -node=agent-two -bind=192.168.33.36 -config-dir' \
+      ' -node=server-two -bind=192.168.33.36 -config-dir' \
       ' /etc/consul.d -join 192.168.33.35 > /var/log/consul/consul.log 2>&1 &'
     )
   end
@@ -97,7 +97,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node_3.vm.provision(
       'shell',
       inline: 'consul agent -server -data-dir /tmp/consul' \
-      ' -node=agent-three -bind=192.168.33.37 -config-dir' \
+      ' -node=server-three -bind=192.168.33.37 -config-dir' \
       ' /etc/consul.d -join 192.168.33.36 > /var/log/consul/consul.log 2>&1 &'
     )
   end
@@ -116,7 +116,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node_4.vm.provision(
       'shell',
       inline: 'consul agent -server -data-dir /tmp/consul' \
-      ' -node=agent-three -bind=192.168.33.38 -config-dir' \
+      ' -node=agent-one -bind=192.168.33.38 -config-dir' \
       ' /etc/consul.d -join 192.168.33.37 > /var/log/consul/consul.log 2>&1 &'
     )
   end
