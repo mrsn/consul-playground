@@ -103,7 +103,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
     config.vm.define 'node_4' do |node_4|
-    node_4.vm.hostname = 'node3'
+    node_4.vm.hostname = 'node4'
     node_4.vm.network :private_network, ip: '192.168.33.38'
 
     node_4.vm.provider :virtualbox do |vb|
