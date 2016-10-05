@@ -3,21 +3,9 @@
 
 $install_consul_script = <<SCRIPT
 
-CONSUL_VERSION=0.7.0
+yum install curl unzip wget bind-utils -y docker
 
-yum install curl unzip wget bind-utils -y
-
-wget -P /tmp https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip
-wget -P /tmp https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_web_ui.zip
-
-unzip /tmp/consul_${CONSUL_VERSION}_linux_amd64.zip -d /opt/consul_${CONSUL_VERSION}_linux_amd64
-unzip /tmp/consul_${CONSUL_VERSION}_web_ui.zip -d /opt/consul_${CONSUL_VERSION}_web_ui
-
-ln -sf /opt/consul_${CONSUL_VERSION}_linux_amd64/consul /usr/bin/consul
-
-mkdir -p /etc/consul.d/
-mkdir -p /var/log/consul/
-chmod a+w /etc/consul.d/ /var/log/consul/
+service docker restart
 
 SCRIPT
 
@@ -57,9 +45,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     server_1.vm.provision(
       'shell',
-      inline: 'consul agent -server -bootstrap-expect 5 -data-dir /tmp/consul' \
-      ' -node=server-one -bind=192.168.33.35 -config-dir /etc/consul.d' \
-      ' > /var/log/consul/consul.log 2>&1 &'
+      inline: 'docker run -d --net=host consul agent -server' \
+      ' -bind=192.168.33.35 -node=server-one -bootstrap-expect 5'
     )
   end
 
@@ -74,9 +61,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     server_2.vm.provision(
       'shell',
-      inline: 'consul agent -server -data-dir /tmp/consul' \
-      ' -node=server-two -bind=192.168.33.36 -config-dir' \
-      ' /etc/consul.d -join 192.168.33.35 > /var/log/consul/consul.log 2>&1 &'
+      inline: 'docker run -d --net=host consul agent -server' \
+      ' -bind=192.168.33.36 -join 192.168.33.35 -node=server-two'
     )
   end
 
@@ -91,9 +77,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     server_3.vm.provision(
       'shell',
-      inline: 'consul agent -server -data-dir /tmp/consul' \
-      ' -node=server-three -bind=192.168.33.37 -config-dir' \
-      ' /etc/consul.d -join 192.168.33.36 > /var/log/consul/consul.log 2>&1 &'
+      inline: 'docker run -d --net=host consul agent -server' \
+      ' -bind=192.168.33.37 -join 192.168.33.36 -node=server-three'
     )
   end
 
@@ -108,9 +93,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     server_4.vm.provision(
       'shell',
-      inline: 'consul agent -server -data-dir /tmp/consul' \
-      ' -node=server-four -bind=192.168.33.38 -config-dir' \
-      ' /etc/consul.d -join 192.168.33.37 > /var/log/consul/consul.log 2>&1 &'
+      inline: 'docker run -d --net=host consul agent -server' \
+      ' -bind=192.168.33.38 -join 192.168.33.37 -node=server-four'
     )
   end
 
@@ -125,9 +109,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     server_5.vm.provision(
       'shell',
-      inline: 'consul agent -server -data-dir /tmp/consul' \
-      ' -node=server-five -bind=192.168.33.39 -config-dir' \
-      ' /etc/consul.d -join 192.168.33.38 > /var/log/consul/consul.log 2>&1 &'
+      inline: 'docker run -d --net=host consul agent -server' \
+      ' -bind=192.168.33.39 -join 192.168.33.38 -node=server-five'
     )
   end
 
@@ -142,9 +125,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     agent_1.vm.provision(
       'shell',
-      inline: 'consul agent -data-dir /tmp/consul' \
-      ' -node=agent-one -bind=192.168.33.40 -config-dir' \
-      ' /etc/consul.d -join 192.168.33.35 > /var/log/consul/consul.log 2>&1 &'
+      inline: 'docker run -d --net=host consul agent' \
+      ' -bind=192.168.33.40 -join 192.168.33.35 -node=agent-one'
     )
   end
 end
