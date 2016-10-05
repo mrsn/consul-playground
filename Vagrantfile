@@ -46,7 +46,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   "vagrant/virtualbox/#{box_name}.box"
 
   config.vm.define 'server_1' do |server_1|
-    server_1.vm.hostname = 'server1'
     server_1.vm.network :private_network, ip: '192.168.33.35'
 
     server_1.vm.provider :virtualbox do |vb|
@@ -65,7 +64,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define 'server_2' do |server_2|
-    server_2.vm.hostname = 'server2'
     server_2.vm.network :private_network, ip: '192.168.33.36'
 
     server_2.vm.provider :virtualbox do |vb|
@@ -83,7 +81,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define 'server_3' do |server_3|
-    server_3.vm.hostname = 'server3'
     server_3.vm.network :private_network, ip: '192.168.33.37'
 
     server_3.vm.provider :virtualbox do |vb|
@@ -101,7 +98,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define 'server_4' do |server_4|
-    server_4.vm.hostname = 'server4'
     server_4.vm.network :private_network, ip: '192.168.33.38'
 
     server_4.vm.provider :virtualbox do |vb|
@@ -119,7 +115,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define 'server_5' do |server_5|
-    server_5.vm.hostname = 'server5'
     server_5.vm.network :private_network, ip: '192.168.33.39'
 
     server_5.vm.provider :virtualbox do |vb|
@@ -137,7 +132,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define 'agent_1' do |agent_1|
-    agent_1.vm.hostname = 'agent1'
     agent_1.vm.network :private_network, ip: '192.168.33.40'
 
     agent_1.vm.provider :virtualbox do |vb|
