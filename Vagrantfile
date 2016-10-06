@@ -38,7 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     server_1.vm.network :private_network, ip: '192.168.33.35'
 
     server_1.vm.provider :virtualbox do |vb|
-      vb.customize ['modifyvm', :id, '--memory', '512']
+      vb.customize ['modifyvm', :id, '--memory', '256']
     end
 
     server_1.vm.provision 'shell', inline: $install_consul_script
@@ -47,7 +47,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     server_1.vm.provision(
       'shell',
       inline: "docker run -d --net=host consul:#{CONSUL_VERSION} agent" \
-      ' -server -bind=192.168.33.35 -node=server-one -bootstrap-expect 5 -ui'
+      ' -server -bind=192.168.33.35 -node=server-one -bootstrap-expect 5 -ui' \
+      ' -datacenter dc1'
     )
   end
 
@@ -63,7 +64,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     server_2.vm.provision(
       'shell',
       inline: "docker run -d --net=host consul:#{CONSUL_VERSION} agent" \
-      ' -server -bind=192.168.33.36 -join 192.168.33.35 -node=server-two -ui'
+      ' -server -bind=192.168.33.36 -join 192.168.33.35 -node=server-two -ui' \
+      ' -datacenter dc1'
     )
   end
 
@@ -79,7 +81,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     server_3.vm.provision(
       'shell',
       inline: "docker run -d --net=host consul:#{CONSUL_VERSION} agent" \
-      ' -server -bind=192.168.33.37 -join 192.168.33.36 -node=server-three -ui'
+      ' -server -bind=192.168.33.37 -join 192.168.33.36 -node=server-three -ui' \
+      ' -datacenter dc1'
     )
   end
 
@@ -95,7 +98,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     server_4.vm.provision(
       'shell',
       inline: "docker run -d --net=host consul:#{CONSUL_VERSION} agent" \
-      ' -server -bind=192.168.33.38 -join 192.168.33.37 -node=server-four -ui'
+      ' -server -bind=192.168.33.38 -join 192.168.33.37 -node=server-four -ui' \
+      ' -datacenter dc1'
     )
   end
 
@@ -111,7 +115,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     server_5.vm.provision(
       'shell',
       inline: "docker run -d --net=host consul:#{CONSUL_VERSION} agent" \
-      ' -server -bind=192.168.33.39 -join 192.168.33.38 -node=server-five -ui'
+      ' -server -bind=192.168.33.39 -join 192.168.33.38 -node=server-five -ui' \
+      ' -datacenter dc1'
     )
   end
 
@@ -127,7 +132,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     agent_1.vm.provision(
       'shell',
       inline: "docker run -d --net=host consul:#{CONSUL_VERSION} agent" \
-      ' -bind=192.168.33.40 -join 192.168.33.35 -node=agent-one'
+      ' -bind=192.168.33.40 -join 192.168.33.35 -node=agent-one' \
+      ' -datacenter dc1'
     )
   end
 end
