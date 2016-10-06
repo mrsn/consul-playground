@@ -24,6 +24,7 @@ ln -sfn /opt/vault_${VAULT_VERSION}_linux_amd64/vault /usr/bin/vault
 SCRIPT
 
 VAGRANTFILE_API_VERSION = '2'
+CONSUL_VERSION = 'v0.7.0'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.ssh.insert_key = false
@@ -45,8 +46,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     server_1.vm.provision(
       'shell',
-      inline: 'docker run -d --net=host consul agent -server' \
-      ' -bind=192.168.33.35 -node=server-one -bootstrap-expect 5'
+      inline: "docker run -d --net=host consul:#{CONSUL_VERSION} agent" \
+      ' -server -bind=192.168.33.35 -node=server-one -bootstrap-expect 5 -ui'
     )
   end
 
@@ -61,8 +62,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     server_2.vm.provision(
       'shell',
-      inline: 'docker run -d --net=host consul agent -server' \
-      ' -bind=192.168.33.36 -join 192.168.33.35 -node=server-two'
+      inline: "docker run -d --net=host consul:#{CONSUL_VERSION} agent" \
+      ' -server -bind=192.168.33.36 -join 192.168.33.35 -node=server-two -ui'
     )
   end
 
@@ -77,8 +78,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     server_3.vm.provision(
       'shell',
-      inline: 'docker run -d --net=host consul agent -server' \
-      ' -bind=192.168.33.37 -join 192.168.33.36 -node=server-three'
+      inline: "docker run -d --net=host consul:#{CONSUL_VERSION} agent" \
+      ' -server -bind=192.168.33.37 -join 192.168.33.36 -node=server-three -ui'
     )
   end
 
@@ -93,8 +94,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     server_4.vm.provision(
       'shell',
-      inline: 'docker run -d --net=host consul agent -server' \
-      ' -bind=192.168.33.38 -join 192.168.33.37 -node=server-four'
+      inline: "docker run -d --net=host consul:#{CONSUL_VERSION} agent" \
+      ' -server -bind=192.168.33.38 -join 192.168.33.37 -node=server-four -ui'
     )
   end
 
@@ -109,8 +110,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     server_5.vm.provision(
       'shell',
-      inline: 'docker run -d --net=host consul agent -server' \
-      ' -bind=192.168.33.39 -join 192.168.33.38 -node=server-five'
+      inline: "docker run -d --net=host consul:#{CONSUL_VERSION} agent" \
+      ' -server -bind=192.168.33.39 -join 192.168.33.38 -node=server-five -ui'
     )
   end
 
@@ -125,7 +126,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     agent_1.vm.provision(
       'shell',
-      inline: 'docker run -d --net=host consul agent' \
+      inline: "docker run -d --net=host consul:#{CONSUL_VERSION} agent" \
       ' -bind=192.168.33.40 -join 192.168.33.35 -node=agent-one'
     )
   end
