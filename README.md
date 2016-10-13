@@ -11,6 +11,7 @@
 3. Nodes in the same datacenter should be on a single LAN
 4. ONLY servers have a persistent copy of the configuration
 5. With 3 servers if one server gets down, the other two cannot auto-elect a new leader
+6. Consul does not replicate key-values between different data centers! for this consider using consul-replicate
 
 #### Check cluster members (note this info is eventually consistent)
 	consul members -detailed
