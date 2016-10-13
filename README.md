@@ -17,9 +17,13 @@
 #### Learnings
 
 1. Always specify a bind address (consul listens on the first private ip per default)
+
 2. To join a cluster(LAN), there is no need to join a server (a join to any node is ok). Agents gossip with each other and propagate this information
+
 3. To join different data centers one should join every node from different DCs with -wan
+
 4. With 3 servers if one server gets down, the other two cannot auto-elect a new leader
+
 5. Consul does not replicate key-values between different data centers! For this consider using consul-replicate
 
 #### Check cluster members (note this info is eventually consistent)
