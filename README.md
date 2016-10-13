@@ -5,7 +5,7 @@
 
 	vagrant up
 
-#### Terraform
+#### Deploying in AWS with Terraform
 	cd terraform
 
 	terraform plan -var 'key_name=foo' -var 'additional_security_group=sg-foo' \
