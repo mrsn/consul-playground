@@ -1,17 +1,26 @@
 # consul-playground
 
-### Cluster
+### Usage
+#### Vagrant
 
 	vagrant up
+
+#### Terraform
+	cd terraform
+
+	terraform plan -var 'key_name=foo' -var 'additional_security_group=sg-foo' \
+	-var 'subnet_id_a=subnet-123' -var 'subnet_id_b=subnet-345' -var 'vpc_id=vpc-123'
+
+	terraform apply -var 'key_name=foo' -var 'additional_security_group=sg-foo' \
+	-var 'subnet_id_a=subnet-123' -var 'subnet_id_b=subnet-345' -var 'vpc_id=vpc-123'
 
 #### Learnings
 
 1. Always specify a bind address (consul listens on the first private ip per default)
-2. To join a cluster, there is no need to join a server (a join to any node is ok). Agents gossip with each other and propagate this information
-3. Nodes in the same datacenter should be on a single LAN
-4. ONLY servers have a persistent copy of the configuration
-5. With 3 servers if one server gets down, the other two cannot auto-elect a new leader
-6. Consul does not replicate key-values between different data centers! for this consider using consul-replicate
+2. To join a cluster(LAN), there is no need to join a server (a join to any node is ok). Agents gossip with each other and propagate this information
+3. To join different data centers one should join every node from different DCs with -wan
+4. With 3 servers if one server gets down, the other two cannot auto-elect a new leader
+5. Consul does not replicate key-values between different data centers! For this consider using consul-replicate
 
 #### Check cluster members (note this info is eventually consistent)
 	consul members -detailed
